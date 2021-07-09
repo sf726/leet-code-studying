@@ -1,4 +1,4 @@
-package helperClasses;
+package leetCode.helperClasses;
 
 public class MinStack {
     int[] array = new int[]{};

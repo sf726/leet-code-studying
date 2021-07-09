@@ -1,11 +1,11 @@
-import helperClasses.ListNode;
-import helperClasses.TreeNode;
+package leetCode;
+
+import leetCode.helperClasses.ListNode;
+import leetCode.helperClasses.TreeNode;
 
 import java.util.*;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
+@Deprecated
 public class EasyProblems {
 
 
@@ -210,6 +210,8 @@ public class EasyProblems {
 
     /**
      * Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes of the first two lists.
+     *
+     * NEED TO COME BACK TO THIS ONE
      * @param l1
      * @param l2
      * @return
@@ -615,14 +617,176 @@ public class EasyProblems {
             }
             count += (num == candidate) ? 1 : -1;
         }
-
+        System.out.println();
         return candidate;
     }
 
+    public static boolean isPalindrome(String s) {
+        s = s.replaceAll(
+                "[^a-zA-Z0-9]", "").toLowerCase();
+        int i = 0;
+        int j = s.length() - 1;
 
 
+        while (i < j) {
+            if (s.charAt(i) == s.charAt(j)) {
+                i++;
+                j--;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isPalindromeHelper(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+
+
+        while (i < j) {
+            if (s.charAt(i) == s.charAt(j)) {
+                i++;
+                j--;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int searchInsert(int[] nums, int target) {
+        int low = 0;
+        int high = nums.length - 1;
+        while (low <=high) {
+            int mid = low+(high - low) / 2;
+            int midValue = nums[mid];
+            if (midValue == target) {
+                return mid;
+            } else {
+                if (midValue < target) {
+                    low = mid+1;
+                } else {
+                    high = mid-1;
+                }
+            }
+        }
+        return low;
+    }
+
+    /**
+     * Given a string s, return true if the s can be palindrome after deleting at most one character from it.
+     *
+     *
+     *
+     * better solution (pretty much I was checking sections of the string I knew were good)
+     * public boolean validPalindrome(String s) {
+     *         int l = 0, r = s.length() - 1;
+     *         while (l < r) {
+     *             if (s.charAt(l) != s.charAt(r)) return isPalindromic(s, l, r - 1) || isPalindromic(s, l + 1, r);
+     *             l++;
+     *             r--;
+     *         }
+     *         return true;
+     *     }
+     *
+     *     public boolean isPalindromic(String s, int l, int r) {
+     *         while (l < r) {
+     *             if (s.charAt(l) != s.charAt(r)) return false;
+     *             l++;
+     *             r--;
+     *         }
+     *         return true;
+     *     }
+     * @param s
+     * @return
+     */
+    public static boolean validPalindrome2(String s) {
+        boolean hasFound = false;
+        int i = 0;
+        int j = s.length() - 1;
+        Set<Integer> missMatches = new HashSet<>();
+
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                missMatches.add(i);
+                missMatches.add(j);
+                break;
+            }
+            i++;
+            j--;
+        }
+
+        if (missMatches.isEmpty()) {
+            return true;
+        } else {
+            for (int x : missMatches) {
+                if (hasFound) {
+                    break;
+                }
+                String compare = new StringBuilder(s).deleteCharAt(x).toString();
+                hasFound = isPalindromeHelper(compare);
+            }
+            return hasFound;
+        }
+    }
+
+
+    /**
+     * An array is monotonic if it is either monotone increasing or monotone decreasing.
+     *
+     * An array nums is monotone increasing if for all i <= j, nums[i] <= nums[j].  An array nums is monotone decreasing if for all i <= j, nums[i] >= nums[j].
+     *
+     * Return true if and only if the given array nums is monotonic.
+     *
+     * good first try solution!!!
+     *
+     * Runtime: 1 ms, faster than 99.96% of Java online submissions for Monotonic Array.
+     * Memory Usage: 47.3 MB, less than 67.01% of Java online submissions for Monotonic Array.
+     * @param nums
+     * @return
+     */
+
+    public static boolean isMonotonic(int[] nums){
+        if(nums == null || nums.length <2){
+            return true;
+        }
+
+        boolean isHigher = false;
+        boolean isLower = false;
+        for(int i=1;i<nums.length;i++){
+            int behind = i - 1;
+            int c = nums[behind];
+            if(nums[i] > c){
+                isHigher = true;
+            } else if(nums[i] < c){
+                isLower = true;
+            }
+            if(isHigher && isLower){
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    /**
+     * Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
+     * <p>
+     * An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.
+     * You may assume all four edges of the grid are all surrounded by water.
+     *
+     * @param grid
+     * @return
+     */
+    public int numIslands(char[][] grid) {
+        return 0;
+    }
 
     public static void main(String[] args) {
-       majorityElement(new int[]{8,8,7,7,7});
+      //  System.out.println(isPalindromeHelper("eedee"));
+     //  System.out.println(validPalindrome2("eedede"));
+     System.out.println( isMonotonic(new int[]{1,2,3,5,6}));
+
 }
 }
