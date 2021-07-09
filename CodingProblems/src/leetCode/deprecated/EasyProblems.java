@@ -1,4 +1,4 @@
-package leetCode;
+package leetCode.deprecated;
 
 import leetCode.helperClasses.ListNode;
 import leetCode.helperClasses.TreeNode;
