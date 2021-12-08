@@ -9,7 +9,7 @@ import java.util.Stack;
 import static util.GraphUtil.createNoneTreeGraph;
 import static util.GraphUtil.createTree;
 
-public class DepthFirstSearch {
+public final class DepthFirstSearch {
     public static void dfs(Node head){
         Stack<Node> nodeStack = new Stack<>();
         Set<Node> visited = new HashSet<>();
